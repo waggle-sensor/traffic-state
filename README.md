@@ -19,4 +19,4 @@
 ## Notes to developer:
 - Timestamp for each traffic state needs to be the time when the video captured: The timestamp must be provided with the video.
 - The waggle.plugin.publish function is tested, and checked with [log](https://github.com/waggle-sensor/pywaggle/wiki/Plugins:-Getting-Started#debug-logging).
-- Not yet plugin-ized (3/30/2021): needs to be dockerized and created sage.json and others using [virtual waggle](https://github.com/waggle-sensor/virtual-waggle#running-node-application-stack)
+- Not yet plugin-ized (3/30/2021): needs to be dockerized and create sage.json and others using [virtual waggle](https://github.com/waggle-sensor/virtual-waggle#running-node-application-stack)
