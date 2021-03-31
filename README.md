@@ -14,6 +14,7 @@
 - We use the two methods (`YOLOv4` and `DeepSort`) to calculate traffic state. <br/>
 - And the calculation results are sent through `PyWaggle` to Cloud (for detail information see [PyWaggle](https://github.com/waggle-sensor/pywaggle)). <br/>
 - The `PyWaggle` is simply implemented in `pywaggle.ipynb` and `pywaggle.py`, and still testing the modules (3/27/2021).
+- To build the plugin as a Docker container to run in Waggle nodes, refer [exmple plugin](https://github.com/waggle-sensor/plugin-helloworld-ml) and a [wiki](https://github.com/waggle-sensor/plugin-helloworld-ml/wiki/Dockerization:-Getting-Started#dockerization-getting-started) (3/31/2021).
 
 
 ## Notes to developer:
