@@ -88,7 +88,7 @@ class deepsort_rbc():
 
         features = self.encoder.forward_once(processed_crops)
         features = features.detach().cpu().numpy()
-        
+
 #         print('features', features)
 
         if len(features.shape) == 1:

@@ -8,8 +8,6 @@ import torch
 
 import time
 
-
-
 def call_deepsort(wt_path='../model640.pt', use_cuda=True):
     m_deepsort = torch.load(wt_path)
 
@@ -159,11 +157,22 @@ class run_class():
 
 if __name__=='__main__':
     video_path = '../tracking_record1.mov'
+    class_names = ['person', 'bicycle', 'car', 'motorbike', 'aeroplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
+                   'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
+                   'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee',
+                   'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard',
+                   'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
+                   'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'sofa',
+                   'pottedplant', 'bed', 'diningtable', 'toilet', 'tvmonitor', 'laptop', 'mouse', 'remote', 'keyboard',
+                   'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors',
+                   'teddy bear', 'hair drier', 'toothbrush']
+
+
 
     cap = cv2.VideoCapture(video_path)
     cvfps = cap.get(cv2.CAP_PROP_FPS)
     cvfps = 30
-    print('fps:  ', fps)
+    print('fps:  ', cvfps)
 
     width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float
@@ -173,12 +182,13 @@ if __name__=='__main__':
     RClass = run_class(DSort, road=20*3*3, fps=cvfps, road_length=20)
 
     total_frames = 0.
-    for i in range(len(ex)):
+    ret = True
+    while ret:
         total_frames += 1.
         ret, frame = cap.read()
         if total_frames % 2 == 1:
             continue
-        RClass.run_dsort(ex[i], class_names, frame, ret)
+        RClass.run_dsort(frame, class_names, frame, ret)
 
 #         print('a: ', round(RClass.out_occupied/RClass.road*100, 2))
 #         print('b: ', round(RClass.in_occupied/RClass.road*100, 2))

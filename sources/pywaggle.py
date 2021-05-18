@@ -7,7 +7,7 @@ import time
 from time import sleep
 from multiprocessing import Process, Queue, Value
 
-import waggle.plugin as plugin
+#import waggle.plugin as plugin
 
 
 def run_videocapture(video_queue):
@@ -131,21 +131,21 @@ def run_deepsort(kill_queue, input_queue):
         RClass.run_dsort(detection, class_names, frame, ret)
 
         if total_frames % cvfps == 0:
-#             print('>> flow outgoing: ', len(RClass.outgoing))
-#             print('>> flow incoming: ', len(RClass.incoming))
-#             plugin.publish('env.traffic_flow.time', video_timestamp+(total_frames/cvfps))
-            plugin.publish('env.traffic_flow.outgoing', len(RClass.outgoing))
-            plugin.publish('env.traffic_flow.incoming', len(RClass.incoming))
+            print('>> flow outgoing: ', len(RClass.outgoing))
+            print('>> flow incoming: ', len(RClass.incoming))
+#            plugin.publish('env.traffic_flow.time', video_timestamp+(total_frames/cvfps))
+#            plugin.publish('env.traffic_flow.outgoing', len(RClass.outgoing))
+#            plugin.publish('env.traffic_flow.incoming', len(RClass.incoming))
             RClass.total_outgoing = RClass.total_outgoing + RClass.outgoing
             RClass.total_incoming = RClass.total_incoming + RClass.incoming
             RClass.outgoing = []
             RClass.incoming = []
 
-#             print('>>> density outgoing: ', round(RClass.out_occupied/(RClass.road*cvfps)*100, 2))
-#             print('>>> density incoming: ', round(RClass.in_occupied/(RClass.road*cvfps)*100, 2))
-#             plugin.publish('env.traffic_density.time', video_timestamp+(total_frames/cvfps))
-            plugin.publish('env.traffic_density.outgoing', round(RClass.out_occupied/(RClass.road*cvfps)*100, 2))
-            plugin.publish('env.traffic_density.incoming', round(RClass.in_occupied/(RClass.road*cvfps)*100, 2))
+            print('>>> density outgoing: ', round(RClass.out_occupied/(RClass.road*cvfps)*100, 2))
+            print('>>> density incoming: ', round(RClass.in_occupied/(RClass.road*cvfps)*100, 2))
+#            plugin.publish('env.traffic_density.time', video_timestamp+(total_frames/cvfps))
+#            plugin.publish('env.traffic_density.outgoing', round(RClass.out_occupied/(RClass.road*cvfps)*100, 2))
+#            plugin.publish('env.traffic_density.incoming', round(RClass.in_occupied/(RClass.road*cvfps)*100, 2))
             RClass.total_out_occupied = RClass.total_out_occupied + RClass.out_occupied
             RClass.total_in_occupied = RClass.total_in_occupied + RClass.in_occupied
             RClass.out_occupied = 0
@@ -156,20 +156,20 @@ def run_deepsort(kill_queue, input_queue):
     ### Split results (averaged in sec -- or total length of the video)
     ##### traffic flow
     total_sec = total_frames/cvfps
-#     print('>> frames: ', total_frames, cvfps, total_sec)
-#     print('>> counts: ', RClass.total_outgoing, RClass.total_incoming)
-#     print('>> flow: ', len(RClass.total_outgoing)/total_sec, len(RClass.total_incoming)/total_sec)
-#     plugin.publish('env.traffic_flow.time', video_timestamp+(total_frames/cvfps))
-    plugin.publish('env.traffic_flow.outgoing', len(RClass.outgoing))
-    plugin.publish('env.traffic_flow.incoming', len(RClass.incoming))
+    print('>> frames: ', total_frames, cvfps, total_sec)
+    print('>> counts: ', RClass.total_outgoing, RClass.total_incoming)
+    print('>> flow: ', len(RClass.total_outgoing)/total_sec, len(RClass.total_incoming)/total_sec)
+#    plugin.publish('env.traffic_flow.time', video_timestamp+(total_frames/cvfps))
+#    plugin.publish('env.traffic_flow.outgoing', len(RClass.outgoing))
+#    plugin.publish('env.traffic_flow.incoming', len(RClass.incoming))
 
 
     ##### traffic density
-#     print('>>> density outgoing: ', round(RClass.total_out_occupied/(RClass.road*total_frames)*100, 2))
-#     print('>>> density incoming: ', round(RClass.total_in_occupied/(RClass.road*total_frames)*100, 2))
-#     plugin.publish('env.traffic_density.time', video_timestamp+(total_frames/cvfps))
-    plugin.publish('env.traffic_density.outgoing', round(RClass.out_occupied/(RClass.road*cvfps)*100, 2))
-    plugin.publish('env.traffic_density.incoming', round(RClass.in_occupied/(RClass.road*cvfps)*100, 2))
+    print('>>> density outgoing: ', round(RClass.total_out_occupied/(RClass.road*total_frames)*100, 2))
+    print('>>> density incoming: ', round(RClass.total_in_occupied/(RClass.road*total_frames)*100, 2))
+#    plugin.publish('env.traffic_density.time', video_timestamp+(total_frames/cvfps))
+#    plugin.publish('env.traffic_density.outgoing', round(RClass.out_occupied/(RClass.road*cvfps)*100, 2))
+#    plugin.publish('env.traffic_density.incoming', round(RClass.in_occupied/(RClass.road*cvfps)*100, 2))
 
 
     ##### traffic speed
